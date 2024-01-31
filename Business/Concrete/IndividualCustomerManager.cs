@@ -3,11 +3,10 @@
 using AutoMapper;
 using Business.BusinessRules;
 using Business.Requests.IndividualCustomer;
-using Business.Requests.Model;
+
 using Business.Responses.IndividualCustomer;
-using Business.Responses.Model;
 using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
+
 using Entities.Concrete;
 
 namespace Business.Concrete
@@ -27,7 +26,7 @@ namespace Business.Concrete
 
         public AddIndividualCustomerResponse Add(AddIndividualCustomerRequest request)
         {
-            _individualCustomerBusinessRules.CheckIfCustomerNameIsExists($"{request.FirstName} {request.LastName}");
+           
 
             IndividualCustomer individualCustomerToAdd = _mapper.Map<IndividualCustomer>(request);
             _individualCustomerDal.Add(individualCustomerToAdd);
@@ -36,12 +35,24 @@ namespace Business.Concrete
         }
         public GetIndividualCustomerByIdResponse GetById(GetIndividualCustomerByIdRequest request)
         {
-            IndividualCustomer individualCustomer = _individualCustomerDal.Get(predicate: individual => individual.Id == request.UserId);
-
-            // Check if the individual exists by full name
-            _individualCustomerBusinessRules.CheckIfCustomerNameIsExists($"{individualCustomer.FirstName} {individualCustomer.LastName}");
+            IndividualCustomer individualCustomer = _individualCustomerDal.Get(predicate: individual => individual.Id == request.CustomerId);
 
             var response = _mapper.Map<GetIndividualCustomerByIdResponse>(individualCustomer);
+            return response;
+        }
+        public UpdateIndividualCustomerResponse Update(UpdateIndividualCustomerRequest request)
+        {
+            IndividualCustomer? individualToUpdate = _individualCustomerDal.Get(predicate: individual => individual.CustomerId== request.CustomerId); 
+          
+            _individualCustomerBusinessRules.CheckIfIndividualCustomerExists(individualToUpdate);
+
+           
+            individualToUpdate = _mapper.Map(request, individualToUpdate); 
+            IndividualCustomer updatedIndividual = _individualCustomerDal.Update(individualToUpdate!);
+
+            var response = _mapper.Map<UpdateIndividualCustomerResponse>(
+                updatedIndividual 
+            );
             return response;
         }
 

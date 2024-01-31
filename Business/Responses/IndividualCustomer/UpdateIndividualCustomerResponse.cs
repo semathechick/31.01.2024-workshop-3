@@ -1,12 +1,10 @@
-﻿namespace Business.Responses.CorporateCustomer
+﻿namespace Business.Responses.IndividualCustomer
 {
-    public class AddCorporateCustomerResponse
+    public class UpdateIndividualCustomerResponse
     {
         public int CustomerId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string? TaxNo { get; set; }
-
-
+        public DateTime DateTime { get; set; }
     }
 }

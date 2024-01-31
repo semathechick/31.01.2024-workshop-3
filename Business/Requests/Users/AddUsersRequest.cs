@@ -1,13 +1,18 @@
-﻿
-
-namespace Business.Requests.Users
+﻿namespace Business
 {
     public class AddUsersRequest
     {
-        public int Id { get; set; }
-        public string  FirstName { get; set; }
-        public string LastName { get; set; }    
+        public AddUsersRequest(string firstName, string lastName, string email)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+        }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
+
+       
     }
 }

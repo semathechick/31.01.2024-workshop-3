@@ -28,10 +28,7 @@ namespace Business.Concrete
 
         public AddCustomerResponse Add(AddCustomerRequest request)
         {
-            //var customersToAdd = _mapper.Map<Customer>(request);
-            //_customerDal.Add(customersToAdd);
-            //AddCustomerResponse response = _mapper.Map<AddCustomerResponse>(request);
-            //return response;
+            
             var customerToAdd = _mapper.Map<Customer>(request);
 
             Customer addedCustomer = _customerDal.Add(customerToAdd);

@@ -2,6 +2,6 @@
 {
     public class GetCorporateCustomerByIdRequest
     {
-        public int UserId { get; set; }
+        public int CustomerId { get; set; }
     }
 }

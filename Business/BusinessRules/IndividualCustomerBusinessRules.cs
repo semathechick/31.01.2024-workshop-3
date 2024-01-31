@@ -1,5 +1,6 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions;
 using DataAccess.Abstract;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 
@@ -15,15 +16,12 @@ namespace Business.BusinessRules
             _individualCustomerDal = individualCustomerDal;
             
         }
-        public void CheckIfCustomerNameIsExists(string individualName)
+        public void CheckIfIndividualCustomerExists(IndividualCustomer? individualCustomer)
         {
-            bool isExists = _individualCustomerDal.Get(individual => $"{individual.FirstName}  {individual.LastName}"== individualName) is not null ;
-            if(!isExists)
-            {
-                throw new BusinessException("User can not be found.");
-            }
+            if (individualCustomer is null)
+                throw new NotFoundException("Customer not found.");
         }
 
-        
+
     }
 }
